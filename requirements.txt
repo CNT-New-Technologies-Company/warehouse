@@ -1,5 +1,4 @@
-base64
-streamlit
+streamlit==1.38.0
 pandas
 plotly
 sweetviz
