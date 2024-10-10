@@ -1,0 +1,17 @@
+
+Previo a ejecutar la aplicación, asegurate de tener las dependencias necesarias para ejecutar la apliación en tu ordenador.
+
+Necesitas tener Python, Pandas, Plotly y Streamlit. Para conocer las versiones necesarias de estas librerías puedes consultar el documento "requirements.txt".
+Te sugiero descargar anaconda, pues es una distribución que ya trae pre-instalado muchas dependencias que se utilizan en ciencia de datos y que te permite ejecutar aplicaciones desde un entorno no local.
+
+Desde el "Anaconda promt" puedes instalar estas librerias y sus actualizaciones utilizando "pip" 
+
+	1. pip install pandas
+	2. pip install plotly
+	3. pip install streamlit
+
+Ahora que todo esta listo, sigue esta secuencia de pasos para ejecutar la aplicación desde terminal.
+
+1. Alojar la carpeta en el directorio de tu preferencia
+2. Abrir command promt o anaconda promt y navegar a traves de tus carpetas hasta llegar al directorio donde alojaste la apliación
+3. ejecutar el siguiente comando "streamlit run app.py"
