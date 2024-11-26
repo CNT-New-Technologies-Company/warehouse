@@ -15,6 +15,9 @@ single_well_logs_paths = os.path.join(one_drive, os.path.normpath(r"CNT\4. Proye
 log_file = "logs.xlsx"
 log_path_and_file = os.path.join(data_folder_path, log_file)
 
+log_file_csv = "logs.csv"
+log_path_and_file_csv = os.path.join(data_folder_path, log_file_csv)
+
 alerts_file = "alerts.xlsx"
 alerts_path_file = os.path.join(data_folder_path, alerts_file)
 

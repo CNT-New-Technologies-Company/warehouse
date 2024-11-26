@@ -99,9 +99,9 @@ try:
 except Exception as e:
     print("Failed to retrieve or save records:", str(e))
 
-
-# In[6]:
-
+# --------------------------------------------------------------------------------------------------------------------------------------
+#                                                               # TNP's                                                        
+# --------------------------------------------------------------------------------------------------------------------------------------
 
 tnp_api_key = os.getenv('AIRTABLE_API_KEY', 'patk6ag0UsQrjK1nn.e5e08f87ff10103893fafa40d8f0210a50cd63dfb93255b8abaf258de292de89')
 tnp_base_id = 'appTA2GBh37ydQWuR'
@@ -127,9 +127,9 @@ try:
 except Exception as e:
     print("Failed to retrieve or save records:", str(e))
 
-
-# In[7]:
-
+# --------------------------------------------------------------------------------------------------------------------------------------
+#                                                               # TNPI's                                                        
+# --------------------------------------------------------------------------------------------------------------------------------------
 
 tnpi_api_key = os.getenv('AIRTABLE_API_KEY', 'patk6ag0UsQrjK1nn.e5e08f87ff10103893fafa40d8f0210a50cd63dfb93255b8abaf258de292de89')
 tnpi_base_id = 'appTA2GBh37ydQWuR'
@@ -157,6 +157,8 @@ try:
 
 except Exception as e:
     print("Failed to retrieve or save records:", str(e))
+
+
 
 
 # #### Calculo de horas de TNPI diario y cumulativo

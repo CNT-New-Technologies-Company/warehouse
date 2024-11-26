@@ -490,12 +490,12 @@ def capitalize_columns_and_pozo(*dataframes):
         if 'Pozo' in df.columns:
             df['Pozo'] = df['Pozo'].str.capitalize()
 
-def calculate_productive_time(inpt_date_filtered, npt_date_filtered):
-    tnpi_totales = inpt_date_filtered[['Pozo', 'Fecha', 'Tnpi generado']].groupby(['Pozo', 'Fecha']).sum().reset_index()
+def calculate_productive_time(inpt, npt):
+    tnpi_totales = inpt[['Pozo', 'Fecha', 'Tnpi generado']].groupby(['Pozo', 'Fecha']).sum().reset_index()
     tnpi_totales['Tnpi cumulativo'] = tnpi_totales.groupby('Pozo')['Tnpi generado'].cumsum()
     tnpi_totales = tnpi_totales.rename(columns={'Tnpi generado': 'TNPI 24h', 'Tnpi cumulativo': 'TNPI total'})
 
-    tnp_totales = npt_date_filtered.copy()
+    tnp_totales = npt.copy()
     tnp_totales = tnp_totales.rename(columns={"Tiempo (dias)": "Tnp generado", 'Apertura': 'Fecha'})
     tnp_totales['Tnp generado'] = tnp_totales['Tnp generado'] * 24
     tnp_totales = tnp_totales[['Pozo', 'Fecha', 'Tnp generado']].groupby(['Pozo', 'Fecha']).sum().reset_index()

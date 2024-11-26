@@ -107,6 +107,7 @@ def reload_inpt():
 logs, alerts, npt, inpt = fn.round_floats([logs, alerts, npt, inpt])
 
 fn.capitalize_columns_and_pozo(logs, alerts, npt, inpt)
+summ_24h = fn.calculate_productive_time(inpt, npt)
 
 ####################     Tab 1     ####################
 
@@ -194,10 +195,13 @@ with tab2:
         alerts_well_filtered = alerts[alerts['Pozo'].isin(well_selector)]
         npt_well_filtered = npt[npt['Pozo'].isin(well_selector)]
         inpt_well_filtered = inpt[inpt['Pozo'].isin(well_selector)]
+        summ_24h_well_filtered = summ_24h[summ_24h['Pozo'].isin(well_selector)]
 
         alerts_date_filtered = alerts_well_filtered[alerts_well_filtered['Apertura'].between(start_date, end_date)]
         npt_date_filtered = npt_well_filtered[npt_well_filtered['Apertura'].between(start_date, end_date)]
         inpt_date_filtered = inpt_well_filtered[inpt_well_filtered['Fecha'].between(start_date, end_date)]
+        inpt_date_filtered = inpt_well_filtered[inpt_well_filtered['Fecha'].between(start_date, end_date)]
+        summ_24h_date_filtered = summ_24h_well_filtered[summ_24h_well_filtered['Fecha'].between(start_date, end_date)]
 
         st.write("Datos filtrados:")
         with st.expander("Alertas"):
@@ -207,8 +211,7 @@ with tab2:
         with st.expander("Tiempos no productivos invisibles"):
             st.dataframe(inpt_date_filtered, height=300, use_container_width=True)
         with st.expander("Resumen de tiempos 24 horas"):
-            summ_24h = fn.calculate_productive_time(inpt_date_filtered, npt_date_filtered)
-            st.dataframe(summ_24h, height=300, use_container_width=True)
+            st.dataframe(summ_24h_date_filtered, height=300, use_container_width=True)
 
     else:
         st.warning("Por favor, selecciona un pozo y rango de tiempo valido.")
@@ -217,7 +220,7 @@ with tab2:
     if compiler_2:
         with st.spinner('Actualizando todos los registros...'):
             subprocess.run(['python', 'call_tablas_at.py'], check=True)
-            alerts = reload_logs()
+            alerts = reload_alerts()
             npt = reload_npt()
             inpt = reload_inpt()
         st.success("Datos actualizados con éxito.")

@@ -1,4 +1,5 @@
 import pandas as pd
+# import funciones as fn
 from directorios import *
 
 logs = pd.read_excel(log_path_and_file)
@@ -17,3 +18,10 @@ inpt.Pozo = inpt.Pozo.str.capitalize()
 logs["Fecha"] = pd.to_datetime(logs["Fecha"]).dt.date
 inpt["Fecha"] = pd.to_datetime(inpt["Fecha"]).dt.date
 npt["Apertura"] = pd.to_datetime(npt["Apertura"]).dt.date
+
+# pt = fn.calculate_productive_time(inpt, npt)
+
+def some_function():
+    from funciones import calculate_productive_time
+    # Usa calculate_productive_time dentro de esta función
+    pt = calculate_productive_time(inpt, npt)
