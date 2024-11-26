@@ -138,6 +138,9 @@ with tab1:
         logs_well_filtered = logs[logs['Pozo'].isin(well_selector)]
     
         # Ensure 'Fecha' column is in datetime format
+        logs_well_filtered['Fecha'] = pd.to_datetime(logs_well_filtered['Fecha'])
+    
+        # Convert 'Fecha' column to datetime.date
         logs_well_filtered['Fecha'] = logs_well_filtered['Fecha'].dt.date
     
         logs_date_filtered = logs_well_filtered[logs_well_filtered['Fecha'].between(start_date.date(), end_date.date())]
