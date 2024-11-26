@@ -4,7 +4,7 @@ import pandas as pd
 # ----------------------------------------------------------------------
 #                          INPUT PATH AND FILES
 # ----------------------------------------------------------------------
-data_folder_path = os.path.normpath(r"data")
+data_folder_path = os.path.normpath(r"2. Datos")
 
 single_well_logs_paths = os.path.join(data_folder_path, "single_well_logs")
 
