@@ -134,11 +134,14 @@ with tab1:
     if well_selector and isinstance(date_range, tuple) and len(date_range) == 2:
         start_date = pd.to_datetime(date_range[0])
         end_date = pd.to_datetime(date_range[1])
-
+    
         logs_well_filtered = logs[logs['Pozo'].isin(well_selector)]
-
-        logs_date_filtered = logs_well_filtered[logs_well_filtered['Fecha'].between(start_date, end_date)]
-
+    
+        # Convert 'Fecha' column to datetime.date
+        logs_well_filtered['Fecha'] = logs_well_filtered['Fecha'].dt.date
+    
+        logs_date_filtered = logs_well_filtered[logs_well_filtered['Fecha'].between(start_date.date(), end_date.date())]
+    
         st.write("Datos filtrados:")
         st.dataframe(logs_date_filtered)
    
