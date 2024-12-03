@@ -12,6 +12,8 @@ from load_data import *
 from plotly.subplots import make_subplots
 from PIL import Image
 from datetime import datetime
+from st_aggrid import AgGrid, GridOptionsBuilder
+import json
 
 ####################     Internal Core     ####################
 import funciones as fn
@@ -22,6 +24,7 @@ import directorios as dir
 app_title = "CN-Tools"
 img=Image.open('1. Imagenes/CNT.png')
 img_tab=Image.open('1. Imagenes/CNT_2.png')
+current_dir = os.path.dirname(__file__)
 
 st.set_page_config(
     page_title = app_title,
@@ -145,9 +148,31 @@ with tab1:
     
         logs_date_filtered = logs_well_filtered[logs_well_filtered['Fecha'].between(start_date.date(), end_date.date())]
     
+        # Create the editable grid
+        json_file_path = os.path.join(current_dir, 'utils', 'binnacle_column_definition.json')
+        with open(json_file_path, encoding='utf-8') as f:
+            column_defs = json.load(f)
+
+        df = pd.DataFrame(logs_date_filtered)
+
+        gb = GridOptionsBuilder.from_dataframe(df)
+
+        for col_def in column_defs:
+            if col_def['field'] == 'Inicia':
+                col_def['cellEditor'] = 'agDateCellEditor'
+                col_def['editable'] = True
+                col_def['cellEditorParams'] = {
+                    'params': {
+                        'dateFormat': 'DD/MM/YYYY HH:mm'  # Ensure the date format is consistent
+                    }
+                }
+            gb.configure_column(**col_def)
+
+        grid_options = gb.build()
+
         st.write("Datos filtrados:")
-        st.dataframe(logs_date_filtered)
-   
+        grid_response = AgGrid(df, gridOptions=grid_options, editable=True)
+        # st.dataframe(logs_date_filtered)
     else:
         st.warning("Por favor, selecciona un pozo y rango de tiempo valido.")
 
