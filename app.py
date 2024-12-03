@@ -178,6 +178,7 @@ with tab1:
         if updated_df is not None:
             xlsx_to_update_path = os.path.join(current_dir, '2. Datos', 'logs.xlsx')
             updated_df.to_excel(xlsx_to_update_path, index=False)
+            reload_logs()
     else:
         st.warning("Por favor, selecciona un pozo y rango de tiempo valido.")
 
