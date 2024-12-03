@@ -159,20 +159,25 @@ with tab1:
 
         for col_def in column_defs:
             if col_def['field'] == 'Inicia':
-                col_def['cellEditor'] = 'agDateCellEditor'
-                col_def['editable'] = True
-                col_def['cellEditorParams'] = {
-                    'params': {
-                        'dateFormat': 'DD/MM/YYYY HH:mm'  # Ensure the date format is consistent
-                    }
-                }
-            gb.configure_column(**col_def)
+                gb.configure_column("Inicia", type=["customDateTimeFormat"], custom_format_string="dd/MM/yyyy HH:mm", editable=True)
+            elif col_def['field'] == 'Termina':
+                gb.configure_column("Termina", type=["customDateTimeFormat"], custom_format_string="dd/MM/yyyy HH:mm", editable=True)
+            elif col_def['field'] == 'Fecha':
+                gb.configure_column("Fecha", type=["customDateTimeFormat"], custom_format_string="dd/MM/yyyy", editable=True)
+            else:
+                gb.configure_column(**col_def)
 
         grid_options = gb.build()
 
         st.write("Datos filtrados:")
         grid_response = AgGrid(df, gridOptions=grid_options, editable=True)
-        # st.dataframe(logs_date_filtered)
+
+        updated_df = grid_response['data']
+
+        # Save changes when user updates the grid
+        if updated_df is not None:
+            xlsx_to_update_path = os.path.join(current_dir, '2. Datos', 'logs.xlsx')
+            updated_df.to_excel(xlsx_to_update_path, index=False)
     else:
         st.warning("Por favor, selecciona un pozo y rango de tiempo valido.")
 
